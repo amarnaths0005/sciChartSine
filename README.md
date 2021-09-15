@@ -6,3 +6,4 @@ Simple WPF MVVM application to display a Sine Curve.
 - Properties contains a resource file having a list of all strings displayed in the View
 
 - Uses the SciChart library for displaying charts, graphs
+- Clicking on the Button generates a new Sine Curve on each click
