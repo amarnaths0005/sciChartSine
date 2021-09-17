@@ -1,7 +1,5 @@
-﻿using SciChart.Charting.Model.DataSeries;
+using SciChart.Charting.Model.DataSeries;
 using System;
-using SciChartSine.Properties;
-
 
 namespace SciChartSine.Model
 {
@@ -11,7 +9,7 @@ namespace SciChartSine.Model
         private double _amplitude;
         public SineCurve()
         {
-            LineData = new XyDataSeries<double, double>() { SeriesName = Strings.SineCurve_SeriesName };
+            LineData = new XyDataSeries<double, double>() { SeriesName = "Sinusoid" };
             UpdateCurve();
         }
 
@@ -23,17 +21,35 @@ namespace SciChartSine.Model
 
         public XyDataSeries<double, double> LineData { get; private set; }
 
+        public String Phase
+        {
+            get
+            {
+                double ph = Math.Round(_phase, 3);
+                return ph.ToString();
+            }
+        }
+
+        public String Amplitude
+        {
+            get
+            {
+                double amp = Math.Round(_amplitude, 3);
+                return amp.ToString();
+            }
+        }
+
         #region HelperFunctions
         private void GenerateRandomAmplitudeAndPhase()
         {
             double minPhase = 0; // degrees
             double maxPhase = 180; // degrees
-            double minAmplitude = 2;
+            double minAmplitude = 1;
             double maxAmplitude = 50;
 
             Random random = new Random();
             double ampRand = random.NextDouble();
-            _amplitude = minAmplitude + ampRand * (maxAmplitude - minAmplitude);
+            _amplitude = Math.Ceiling(minAmplitude + ampRand * (maxAmplitude - minAmplitude));
 
             double phaseRand = random.NextDouble();
             _phase = minPhase + phaseRand * (maxPhase - minPhase); // Degrees
