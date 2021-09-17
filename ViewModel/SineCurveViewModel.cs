@@ -1,23 +1,22 @@
-﻿using SciChart.Charting.Model.ChartSeries;
+using SciChart.Charting.Model.ChartSeries;
 using SciChart.Charting.Model.DataSeries;
 using SciChart.Data.Model;
 using SciChartSine.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
-using SciChartSine.Properties;
 
 namespace SciChartSine.ViewModel
 {
     public class SineCurveViewModel : BindableObject
     {
-        private string _chartTitle = Strings.SineCurve_ChartTitle;
-        private string _xAxisTitle = Strings.SineCurve_XaxisTitle;
-        private string _yAxisTitle = Strings.SineCurve_YaxisTitle;
-        private string _bnGenerateNew = Strings.SineCurve_Button_GenerateNew;
-        private string _windowTitle = Strings.SineCurve_WindowTitle;
+        private string _chartTitle = "Sine Curve";
+        private string _xAxisTitle = "Independent Variable x";
+        private string _yAxisTitle = "Sine Value y";
         private SineCurve _sine;
         private XyDataSeries<double, double> _sineData;
         private RelayCommand _generateCurveCommand;
+        private string _amp;
+        private string _phas;
 
         private ObservableCollection<IRenderableSeriesViewModel> _renderableSeries;
 
@@ -64,23 +63,29 @@ namespace SciChartSine.ViewModel
             }
         }
 
-        public string BnGenerateNew
+        public string Amplitude
         {
-            get { return _bnGenerateNew; }
+            get
+            {
+                return "Amplitude = " + _amp;
+            }
             set
             {
-                _bnGenerateNew = value;
-                OnPropertyChanged(nameof(BnGenerateNew));
+                _amp = value;
+                OnPropertyChanged(nameof(Amplitude));
             }
         }
 
-        public string WindowTitle
+        public string Phase
         {
-            get { return _windowTitle; }
+            get
+            {
+                return "Phase = " + _phas + " radians"; 
+            }
             set
             {
-                _windowTitle = value;
-                OnPropertyChanged(nameof(WindowTitle));
+                _phas = value;
+                OnPropertyChanged(nameof(Phase));
             }
         }
 
@@ -98,11 +103,15 @@ namespace SciChartSine.ViewModel
                 DataSeries = _sineData,
             }
                 );
+            _amp = _sine.Amplitude;
+            _phas = _sine.Phase;
+            Amplitude = _amp;
+            Phase = _phas;
         }
 
         bool CanGenerate
         {
-            get { return true; }
+            get { return _sine.LineData.Count > 0; }
         }
 
         public RelayCommand GenerateCurveCommand
