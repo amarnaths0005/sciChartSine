@@ -1,4 +1,4 @@
-﻿<Window x:Class="SciChartSine.MainWindow"
+<Window x:Class="SciChartSine.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,6 +27,9 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.DataContext>
+        <local:SineCurveViewModel />
+    </Window.DataContext>
     <Grid Margin="4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -38,16 +41,21 @@
         Width="170">
             <StackPanel Orientation="Vertical" Width="170">
                 <HeaderedContentControl
-                    FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"
-                    DataContext="{Binding Source={StaticResource SineCurveViewModel}}"
-                    Content="{Binding Path=WindowTitle}"
+                    Header="Sine Curve" FontSize="20"
+                    FontWeight="Bold" HorizontalAlignment="Center"
                 />
-                <Button x:Name="bnNew" Margin="10" Height="30" 
+                <Button x:Name="bnNew" Margin="10" Width="80" Height="30" 
                         Command="{Binding Path=GenerateCurveCommand}"
                         DataContext="{Binding Source={StaticResource SineCurveViewModel}}"
-                        Content="{Binding Path=BnGenerateNew}"
-                        HorizontalContentAlignment="Center">
+                        >Generate New
                 </Button>
+                <Separator Height="30" Background="Transparent" />
+                <TextBox FontSize="12"  Foreground="Black" HorizontalAlignment="Center"
+                         DataContext="{Binding Source={StaticResource SineCurveViewModel}}"
+                         Text="{Binding Amplitude, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                <TextBox FontSize="12"  Foreground="Black" HorizontalAlignment="Center"
+                         DataContext="{Binding Source={StaticResource SineCurveViewModel}}"
+                         Text="{Binding Phase, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
             </StackPanel>
         </Border>
 
